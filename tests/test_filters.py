@@ -1,9 +1,9 @@
 import pytest
 from typing import List
 
-from main import is_capacity_over, is_not_further_than, is_right_type, is_right_hellfests
+from filters import is_capacity_over, is_not_further_than, is_right_type, is_right_hellfests
 
-valid_locations = [
+valid_accommodations = [
     {
         "HFDist": 3000,
         "nbPerson": 5,
@@ -23,12 +23,12 @@ valid_locations = [
 ]
 
 
-@pytest.mark.parametrize("location", valid_locations)
-def test_valid_data(location: List[dict]):
-    assert is_right_hellfests(location, "HF1 & HF2")
-    assert is_capacity_over(location, 3)
-    assert is_not_further_than(location, 4000)
-    assert is_right_type(location, ["maison", "appartement", "chambre"])
+@pytest.mark.parametrize("accommodation", valid_accommodations)
+def test_valid_data(accommodation: List[dict]):
+    assert is_right_hellfests(accommodation, "HF1 & HF2")
+    assert is_capacity_over(accommodation, 3)
+    assert is_not_further_than(accommodation, 4000)
+    assert is_right_type(accommodation, ["maison", "appartement", "chambre"])
 
 
 def test_not_right_hellfest():
@@ -44,4 +44,4 @@ def test_further_than():
 
 
 def test_not_right_type():
-    assert not is_right_type({"type": "camping"}, "maison")
+    assert not is_right_type({"type": "camping"}, ["maison"])
