@@ -1,11 +1,11 @@
 import pytest
 
-from client.hellfest_client import locations_all
+from client.hellfest_client import accommodations_all
 from urllib3.exceptions import HTTPError
 
 
 def test_hellfest_hebergement_client():
     try:
-        locations_all()
+        accommodations_all()
     except HTTPError:
-        pytest.fail("Could not fetch locations from hellfest-hebergement.fr/")
+        pytest.fail("Could not fetch accommodations from hellfest-hebergement.fr/")
