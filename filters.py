@@ -3,17 +3,18 @@ from typing import List
 import os
 import json
 
-path_to_here = os.path.dirname(os.path.abspath(__file__))
-f = open(os.path.join(path_to_here, "filters.json"))
-filter_values = json.load(f)
 
-
-def filter_accommodations(accommodations: List[dict]) -> List[dict]:
+def filter_accommodations(accommodations: List[dict], filters: List[dict]) -> List[dict]:
+    """
+    Method that runs through all the different filters read from filters.json.
+    :param accommodations: The unfiltered list of accommodations
+    :return: The filtered list of accommodations.
+    """
     return [accommodation for accommodation in accommodations
-            if is_right_hellfests(accommodation, filter_values['HF'])
-            and is_capacity_over(accommodation, filter_values['nbPerson'])
-            and is_not_further_than(accommodation, filter_values['HFDist'])
-            and is_right_type(accommodation, filter_values['types'])]
+            if is_right_hellfests(accommodation, filters['HF'])
+            and is_capacity_over(accommodation, filters['nbPerson'])
+            and is_not_further_than(accommodation, filters['HFDist'])
+            and is_right_type(accommodation, filters['types'])]
 
 
 def is_right_hellfests(accommodation: dict, hellfests: str) -> bool:

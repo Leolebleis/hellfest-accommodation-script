@@ -1,5 +1,4 @@
 import pytest
-from typing import List
 
 from filters import is_capacity_over, is_not_further_than, is_right_type, is_right_hellfests
 
@@ -24,7 +23,7 @@ valid_accommodations = [
 
 
 @pytest.mark.parametrize("accommodation", valid_accommodations)
-def test_valid_data(accommodation: List[dict]):
+def test_valid_data(accommodation: dict):
     assert is_right_hellfests(accommodation, "HF1 & HF2")
     assert is_capacity_over(accommodation, 3)
     assert is_not_further_than(accommodation, 4000)
