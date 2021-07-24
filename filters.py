@@ -1,10 +1,4 @@
-from typing import List
-
-import os
-import json
-
-
-def filter_accommodations(accommodations: List[dict], filters: List[dict]) -> List[dict]:
+def filter_accommodations(accommodations: list[dict], filters: list[dict]) -> list[dict]:
     """
     Method that runs through all the different filters read from filters.json.
     :param accommodations: The unfiltered list of accommodations
@@ -47,7 +41,7 @@ def is_not_further_than(accommodation: dict, max_distance: int) -> bool:
     return accommodation['HFDist'] < max_distance
 
 
-def is_right_type(accommodation: dict, types: List[str]) -> bool:
+def is_right_type(accommodation: dict, types: list[str]) -> bool:
     """
     Returns true if the accommodation is of the right type.
     :param accommodation: the accommodation object fetched from hebergement-hellfest.fr
