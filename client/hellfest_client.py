@@ -1,6 +1,8 @@
 import requests
 import os
 import json
+
+from typing import List
 from urllib3.exceptions import HTTPError
 
 # We load the API config from hellfest_config.json
@@ -9,7 +11,7 @@ f = open(os.path.join(path_to_here, "hellfest_config.json"))
 config = json.load(f)
 
 
-def accommodations_all() -> list[dict]:
+def accommodations_all() -> List[dict]:
     """
     Fetches accommodation data from hellfest-hebergement.fr
     :return: the list of all available accommodations
