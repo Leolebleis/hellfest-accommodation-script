@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 from typing import Any
 
@@ -11,7 +10,6 @@ from filters import filter_accommodations
 from config import config
 from models import Condition
 
-logger = logging.getLogger(__name__)
 
 # We load the filters from filters.json
 path_to_here = os.path.dirname(os.path.abspath(__file__))
@@ -45,22 +43,22 @@ def _save_ids(ids: list[str]) -> None:
 if __name__ == '__main__':
     unfiltered_accommodations = hellfest_client.accommodations_all()
     filtered_accommodations = filter_accommodations(unfiltered_accommodations, conditions)
-    logger.info(f"Filter complete, found {len(filtered_accommodations)} accommodations")
+    print(f"Filter complete, found {len(filtered_accommodations)} accommodations")
 
     unsaved_accommodations: list[dict[str, Any]] = _check_unsaved(filtered_accommodations)
     number_of_new_accommodations = len(unsaved_accommodations)
 
-    logger.info(f"Found {number_of_new_accommodations} new accommodations posted.")
+    print(f"Found {number_of_new_accommodations} new accommodations posted.")
 
     formatted_email = formatter.render_accommodations(unsaved_accommodations, conditions)
 
     try:
-        send_email(formatted_email, f"Hellfest 2022 - {number_of_new_accommodations} nouvelles annonces :)")
+        if number_of_new_accommodations > 0:
+            send_email(formatted_email, f"Hellfest 2022 - {number_of_new_accommodations} nouvelles annonces :)")
 
-        unsaved_ids = [accommodation.get("_id") for accommodation in unsaved_accommodations]
-
-        if len(unsaved_ids) > 0:
+            unsaved_ids = [accommodation.get("_id") for accommodation in unsaved_accommodations]
             _save_ids(unsaved_ids)
+
     except Exception as e:
-        logger.error("Error while sending email")
+        print("Error while sending email")
         send_email(e.__str__(), "Error sending Hellfest accommodation email :(")

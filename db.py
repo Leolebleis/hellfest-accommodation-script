@@ -1,9 +1,5 @@
-import logging
-
 import psycopg2
 
-
-logger = logging.getLogger(__name__)
 
 CREATE_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS hellfest_hebergement_accommodations(accommodation_id serial PRIMARY KEY);
@@ -22,8 +18,7 @@ class AccommodationDatabase:
                 self.conn = psycopg2.connect(self.url, sslmode=self.sslmode)
 
             except psycopg2.DatabaseError as e:
-                logger.error(e)
-                raise e
+                print(e)
 
         with self.conn.cursor() as cur:
             cur.execute(CREATE_TABLE_QUERY)

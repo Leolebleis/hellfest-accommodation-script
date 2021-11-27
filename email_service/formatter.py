@@ -1,5 +1,3 @@
-import logging
-
 from jinja2 import Template
 import os
 
@@ -7,7 +5,6 @@ from typing import List, Any, Union
 
 from models import Condition
 
-logger = logging.getLogger(__name__)
 
 path_to_here = os.path.dirname(os.path.abspath(__file__))
 f = open(os.path.join(path_to_here, "email.html"))
@@ -20,7 +17,7 @@ def render_accommodations(accommodations: List[dict[str, Any]], conditions: list
                                title="Les locations disponibles...",
                                accommodations=accommodations)
 
-    logger.info("Email formatted and rendered.")
+    print("Email formatted and rendered.")
     return formatted_email
 
 
