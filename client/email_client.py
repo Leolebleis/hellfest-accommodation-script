@@ -30,6 +30,8 @@ def send_email(html_body: str, subject_line: str) -> None:
         "Subject-Line": subject_line
     })
 
+    print(f"Email sent, ({r.status_code})")
+
     r.raise_for_status()
 
 
