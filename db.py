@@ -11,24 +11,16 @@ CREATE TABLE IF NOT EXISTS hellfest_hebergement_accommodations(accommodation_id 
 
 
 class AccommodationDatabase:
-    def __init__(self, host, username, password, port, dbname):
-        self.host = host
-        self.username = username
-        self.password = password
-        self.port = port
-        self.dbname = dbname
+    def __init__(self, url: str, sslmode: str):
+        self.url = url
+        self.sslmode = sslmode
         self.conn = None
 
     def connect(self):
         if self.conn is None:
             try:
-                self.conn = psycopg2.connect(
-                    host=self.host,
-                    user=self.username,
-                    password=self.password,
-                    port=self.port,
-                    dbname=self.dbname,
-                )
+                self.conn = psycopg2.connect(self.url, sslmode=self.sslmode)
+
             except psycopg2.DatabaseError as e:
                 logger.error(e)
                 raise e
