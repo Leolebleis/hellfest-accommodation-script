@@ -58,6 +58,8 @@ if __name__ == '__main__':
 
             unsaved_ids = [accommodation.get("_id") for accommodation in unsaved_accommodations]
             _save_ids(unsaved_ids)
+        else:
+            print("Skipping email notification")
 
     except Exception as e:
         print("Error while sending email")
